@@ -1,8 +1,8 @@
 import math
 import typing
 import cv2 as cv
+import imutils
 import rawpy
-
 from config import config
 
 
@@ -29,12 +29,13 @@ def imread(path: typing.AnyStr):
         with rawpy.imread(path) as raw:
             rgb = raw.postprocess()
         image = cv.cvtColor(rgb, cv.COLOR_RGB2BGR)
-    if is_vertical_image(image):
-        image = cv.resize(image, (config.processing_height, config.processing_width), interpolation=cv.INTER_CUBIC)
-    else:
-        image = cv.resize(image, (config.processing_width, config.processing_height), interpolation=cv.INTER_CUBIC)
-    cv.imshow('image', image)
-    key = cv.waitKey(0)
-    if key == ord('q'):
+    if not config.disable_resize:
+        if is_vertical_image(image):
+            image = imutils.resize(image, width=config.processing_height)
+        else:
+            image = imutils.resize(image, width=config.processing_width)
+    if config.image_debug_mode:
+        cv.imshow('Input Re-Sized Image', image)
+        _ = cv.waitKey(0)
         cv.destroyAllWindows()
     return image
