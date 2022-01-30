@@ -4,4 +4,4 @@ rawpy~=0.17.0
 deepface~=0.0.72
 face-recognition~=1.3.0
 imutils~=0.5.4
-dlib~=19.23.0
+cpbd~=1.0.7

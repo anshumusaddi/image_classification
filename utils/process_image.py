@@ -1,5 +1,7 @@
 from libs import *
 from utils import *
+from glob import glob
+import os
 
 
 def process_face(image, known_faces=None, location=None):
@@ -29,6 +31,7 @@ def process_image(image, known_faces=None):
     data["blur"] = generate_blur_data(blur_value)
     exposure_value = get_exposure_value(image)
     data["exposure"] = generate_exposure_data(exposure_value)
+    data["sharpness"] = get_sharpness_value(image)
     face_images, face_locations = get_face_images(image)
     face_data_list = list()
     for face, location in zip(face_images, face_locations):
