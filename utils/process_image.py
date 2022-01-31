@@ -1,7 +1,7 @@
-from libs import *
-from utils import *
-from glob import glob
 import os
+from glob import glob
+
+from libs import *
 
 
 def process_face(image, known_faces=None, location=None):
@@ -18,9 +18,9 @@ def process_face(image, known_faces=None, location=None):
     if eye_status:
         data["eye_data"] = generate_eye_data(eye_status)
     if known_faces:
-        face_similarity_list = get_face_distance(known_faces, image)
+        face_similarity_list = get_face_distance(list(known_faces.values()), image)
         if face_similarity_list is not None:
-            data["face_similarity"] = generate_face_similarity_data(face_similarity_list)
+            data["face_similarity"] = generate_face_similarity_data(face_similarity_list, list(known_faces.keys()))
     if location and data:
         data["location"] = location
     return data
@@ -46,12 +46,12 @@ def process_image(image, known_faces=None):
 
 def load_known_images(file_path):
     images = glob(os.path.join(file_path, '*'))
-    known_face_encoding = list()
+    known_face_encoding = dict()
     for image_path in images:
         image = imread(image_path)
         face_images, _ = get_face_images(image)
-        for face_image in face_images:
-            face_encoding = get_face_encoding(face_image)
-            if face_encoding is not None:
-                known_face_encoding.append(face_encoding)
+        face_image = face_images[0]
+        face_encoding = get_face_encoding(face_image)
+        if face_encoding is not None:
+            known_face_encoding[os.path.basename(image_path)] = face_encoding
     return known_face_encoding

@@ -64,11 +64,14 @@ def generate_eye_data(eye_status):
     return eye_data
 
 
-def generate_face_similarity_data(face_distance):
+def generate_face_similarity_data(face_distance, file_names):
     face_similarity = dict()
     face_similarity["face_distance"] = face_distance
     face_match = face_distance <= config.face_similarity_tolerance
-    face_similarity["face_match"] = np.any(face_match)
+    match_list = list()
+    for match in np.where(face_match)[0]:
+        match_list.append(file_names[match])
+    face_similarity["face_match_file"] = match_list
     return face_similarity
 
 
