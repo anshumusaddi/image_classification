@@ -10,6 +10,7 @@ def process_face(image, known_faces=None, location=None):
     if not face_present:
         return data
     emotion = get_emotion(image)
+    data["dct_blur"] = get_dct_blur_value(image)
     if emotion:
         del emotion["region"]
         data["emotion"] = emotion
