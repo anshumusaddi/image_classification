@@ -1,6 +1,3 @@
-import os
-from glob import glob
-
 from libs import *
 
 
@@ -9,11 +6,11 @@ def process_face(image, known_faces=None, location=None):
     face_present = is_face_present(image)
     if not face_present:
         return data
-    emotion = get_emotion(image)
+    face_feature = get_face_feature(image)
     data["dct_blur"] = get_dct_blur_value(image)
-    if emotion:
-        del emotion["region"]
-        data["emotion"] = emotion
+    if face_feature:
+        del face_feature["region"]
+        data["face_feature"] = face_feature
     eye_status = get_eye_open_status(image)
     if eye_status:
         data["eye_data"] = generate_eye_data(eye_status)
