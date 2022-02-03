@@ -1,13 +1,10 @@
-import face_recognition
-
-from libs.face_recognition import get_face_encoding
+import numpy as np
 
 
-def get_face_distance(known_faces, current_face):
+def get_face_distance(known_faces, current_face_encoding):
     if not isinstance(known_faces, list):
-        known_faces = [known_faces]
-    current_face_encoding = get_face_encoding(current_face)
+        known_faces = np.array([known_faces])
     if current_face_encoding is None:
         return None
-    distance = face_recognition.face_distance(known_faces, current_face_encoding)
+    distance = np.linalg.norm(known_faces - current_face_encoding, axis=1)
     return distance

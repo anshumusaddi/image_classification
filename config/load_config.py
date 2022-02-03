@@ -14,10 +14,8 @@ class Config(object):
         self.processing_height = file_config.get("processing_height", 1080)
         self.image_debug_mode = file_config.get("image_debug_mode", False)
         self.disable_resize = file_config.get("disable_resize", False)
-        self.landmark_model = file_config.get("landmark_model", "data/landmarks_68.dat")
         self.left_eye_landmarks = file_config.get("left_eye_landmarks", [36, 37, 38, 39, 40, 41])
         self.right_eye_landmarks = file_config.get("right_eye_landmarks", [42, 43, 44, 45, 46, 47])
-        self.advanced_face_recognition = file_config.get("advanced_face_recognition", False)
 
         self.blur_threshold = file_config.get("blur_threshold", 45)
         self.exposure_threshold_low = file_config.get("exposure_threshold_low", 22)

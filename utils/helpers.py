@@ -2,7 +2,6 @@ import math
 import typing
 
 import cv2 as cv
-import dlib
 import imutils
 import numpy as np
 import rawpy
@@ -11,7 +10,7 @@ from config import config
 
 
 def mid_point(point1, point2):
-    midpoint = (int((point1.x + point2.y) / 2), int((point1.x + point2.y) / 2))
+    midpoint = (int((point1[0] + point2[1]) / 2), int((point1[0] + point2[1]) / 2))
     return midpoint
 
 
@@ -23,13 +22,6 @@ def is_vertical_image(image):
     shape = image.shape
     if shape[0] > shape[1]:
         return True
-
-
-def is_face_present(image):
-    face_detector = dlib.get_frontal_face_detector()
-    if face_detector(image) or config.advanced_face_recognition:
-        return True
-    return False
 
 
 def generate_blur_data(blur_value):
