@@ -27,6 +27,7 @@ def get_face_images_info(image):
         face_data = dict()
         face_data["landmarks"] = face.landmark_3d_68
         face_data["embedding"] = face.embedding
+        face_data["pose"] = face.pose
         if config.image_debug_mode:
             cv.imshow(f'Image Face {i + 1}', face_img)
             _ = cv.waitKey(0)
