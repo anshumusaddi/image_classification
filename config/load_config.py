@@ -16,6 +16,9 @@ class Config(object):
         self.disable_resize = file_config.get("disable_resize", False)
         self.left_eye_landmarks = file_config.get("left_eye_landmarks", [36, 37, 38, 39, 40, 41])
         self.right_eye_landmarks = file_config.get("right_eye_landmarks", [42, 43, 44, 45, 46, 47])
+        self.supported_file_formats = file_config.get("supported_file_formats", ['JPEG', 'PNG', 'BMP', 'MPO', 'PPM',
+                                                                                 'TIFF', 'GIF'])
+        self.similarity_threshold = file_config.get("similarity_threshold", 0.85)
 
         self.blur_threshold = file_config.get("blur_threshold", 45)
         self.exposure_threshold_low = file_config.get("exposure_threshold_low", 22)
