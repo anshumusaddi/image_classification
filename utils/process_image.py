@@ -20,6 +20,7 @@ def process_face(face_info, image, known_faces=None, location=None):
             data["face_similarity"] = generate_face_similarity_data(face_similarity_list, list(known_faces.keys()))
     if location and data:
         data["location"] = location
+    data["pose"] = face_info["pose"]
     return data
 
 
