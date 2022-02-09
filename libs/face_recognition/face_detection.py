@@ -15,11 +15,11 @@ def get_face_info(image):
 
 def get_face_images_info(image):
     faces = get_face_info(image)
-    if not faces:
-        return None
     face_info = list()
     face_locations = list()
     faces_image = list()
+    if not faces:
+        return np.array(face_info), np.array(faces_image), np.array(face_locations)
     for i, face in enumerate(faces):
         face_location = {"x1": int(face.bbox[1]), "x2": int(face.bbox[3]), "y1": int(face.bbox[0]), "y2":
             int(face.bbox[2])}

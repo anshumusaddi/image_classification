@@ -350,7 +350,7 @@ def get_similarity(image_dir, min_similarity_threshold=config.similarity_thresho
                                              scores=scores,
                                              outfile=outfile)
     similar_images = list()
-    for key, value in duplicates:
+    for key, value in duplicates.items():
         value.append(key)
         similar_images.append(value)
     return similar_images

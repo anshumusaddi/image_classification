@@ -69,7 +69,7 @@ def generate_face_similarity_data(face_distance, file_names):
 
 def imread(path: typing.AnyStr):
     extension = path.split(".")[-1]
-    if extension in ["bmp", "pbm", "pgm", "ppm", "sr", "ras", "jpeg", "jpg", "jpe", "jp2", "tiff", "tif", "png"]:
+    if extension.lower() in ["bmp", "pbm", "pgm", "ppm", "sr", "ras", "jpeg", "jpg", "jpe", "jp2", "tiff", "tif", "png"]:
         image = cv.imread(path)
     else:
         with rawpy.imread(path) as raw:

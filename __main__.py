@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 
 from utils import process_image, process_directory, imread, load_known_images
 
@@ -14,6 +15,8 @@ def __main__(img_directory, face_img_directory=None):
     for cluster in images_clustered:
         cluster_data = dict()
         for img_path in cluster:
+            print(img_path)
+            img_path = os.path.join(img_directory, img_path)
             image = imread(img_path)
             image_data = process_image(image, known_faces)
             cluster_data[img_path] = image_data
@@ -38,3 +41,4 @@ if __name__ == '__main__':
             json.dump(dir_img_data, fp, indent=2)
     else:
         print(json.dumps(dir_img_data, indent=2))
+        #print(dir_img_data)
