@@ -72,9 +72,10 @@ def imread(path: typing.AnyStr):
     if extension.lower() in ["bmp", "pbm", "pgm", "ppm", "sr", "ras", "jpeg", "jpg", "jpe", "jp2", "tiff", "tif", "png"]:
         image = cv.imread(path)
     else:
-        with rawpy.imread(path) as raw:
-            rgb = raw.postprocess()
-        image = cv.cvtColor(rgb, cv.COLOR_RGB2BGR)
+        # with rawpy.imread(path) as raw:
+        #     rgb = raw.postprocess()
+        # image = cv.cvtColor(rgb, cv.COLOR_RGB2BGR)
+        raise ValueError(f"{extension} Not Supported Yet!")
     if not config.disable_resize:
         if is_vertical_image(image):
             image = imutils.resize(image, width=config.processing_height)
