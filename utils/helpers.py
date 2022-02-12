@@ -58,7 +58,7 @@ def generate_eye_data(eye_status):
 
 def generate_face_similarity_data(face_distance, file_names):
     face_similarity = dict()
-    face_similarity["face_distance"] = face_distance
+    face_similarity["face_distance"] = face_distance.tolist()
     face_match = face_distance <= config.face_similarity_tolerance
     match_list = list()
     for match in np.where(face_match)[0]:
