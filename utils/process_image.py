@@ -1,6 +1,3 @@
-import os
-from glob import glob
-
 from libs import *
 
 
@@ -37,7 +34,7 @@ def process_image(image, known_faces=None):
     face_infos, face_images, face_locations = get_face_images_info(image)
     face_data_list = list()
     for face_info, face, location in zip(face_infos, face_images, face_locations):
-        if face is None:
+        if face is None or len(face):
             continue
         face_data = process_face(face_info, face, known_faces, location)
         if face_data:

@@ -35,4 +35,4 @@ def get_face_images_info(image):
         face_info.append(face_data)
         faces_image.append(face_img)
         face_locations.append(face_location)
-    return np.array(face_info), np.array(faces_image), np.array(face_locations)
+    return np.array(face_info), faces_image, np.array(face_locations)
