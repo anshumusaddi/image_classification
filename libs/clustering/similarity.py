@@ -342,15 +342,49 @@ class CNN:
 
         return result
 
+def merge(duplicates):
+    solos = []
+    bursts = {}
+    
+    for k,v in duplicates.items():
+        if len(v) < 1:
+            solos.append(k)
+        else:
+            bursts[k] = [k] + v
+    
+    lsts = list(bursts.values())
+    
+    sets = [set(lst) for lst in lsts if lst]
+    merged = True
+    while merged:
+        merged = False
+        results = []
+        while sets:
+            common, rest = set(sets[0]), sets[1:]
+            sets = []
+            for x in rest:
+                setx = set(x)
+                if setx.isdisjoint(common):
+                    sets.append(x)
+                else:
+                    merged = True
+                    common |= setx
+            results.append(list(common))
+            #print(results)
+        sets = results
+    for s in solos:
+        l = []
+        l.append(s)
+        sets.append(l)
+    #print(sets)
+    return sets
 
 def get_similarity(image_dir, min_similarity_threshold=config.similarity_threshold, scores=False, outfile=None):
     cnn_encoder = CNN()
     duplicates = cnn_encoder.find_duplicates(image_dir=image_dir,
                                              min_similarity_threshold=min_similarity_threshold,
-                                             scores=scores,
+                                             scores=False,
                                              outfile=outfile)
-    similar_images = list()
-    for key, value in duplicates.items():
-        value.append(key)
-        similar_images.append(value)
-    return similar_images
+    #print(duplicates)
+    
+    return merge(duplicates)

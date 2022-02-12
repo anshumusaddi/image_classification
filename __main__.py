@@ -10,10 +10,13 @@ def __main__(img_directory, face_img_directory=None):
     else:
         known_faces = None
     images_clustered = process_directory(img_directory)
+    #print(images_clustered)
     directory_data = list()
     for cluster in images_clustered:
         cluster_data = dict()
+        #print(cluster)
         for img_path in cluster:
+            #print(img_path)
             dir_img_path = os.path.join(img_directory, img_path)
             image = imread(dir_img_path)
             image_data = process_image(image, known_faces)
