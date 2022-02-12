@@ -370,21 +370,16 @@ def merge(duplicates):
                     merged = True
                     common |= setx
             results.append(list(common))
-            #print(results)
         sets = results
     for s in solos:
-        l = []
-        l.append(s)
-        sets.append(l)
-    #print(sets)
+        sets.append([s])
     return sets
 
-def get_similarity(image_dir, min_similarity_threshold=config.similarity_threshold, scores=False, outfile=None):
+
+def get_similarity(image_dir, min_similarity_threshold=config.similarity_threshold, outfile=None):
     cnn_encoder = CNN()
     duplicates = cnn_encoder.find_duplicates(image_dir=image_dir,
                                              min_similarity_threshold=min_similarity_threshold,
                                              scores=False,
                                              outfile=outfile)
-    #print(duplicates)
-    
     return merge(duplicates)

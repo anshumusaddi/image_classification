@@ -4,7 +4,6 @@ import typing
 import cv2 as cv
 import imutils
 import numpy as np
-import rawpy
 
 from config import config
 
@@ -69,7 +68,8 @@ def generate_face_similarity_data(face_distance, file_names):
 
 def imread(path: typing.AnyStr):
     extension = path.split(".")[-1]
-    if extension.lower() in ["bmp", "pbm", "pgm", "ppm", "sr", "ras", "jpeg", "jpg", "jpe", "jp2", "tiff", "tif", "png"]:
+    if extension.lower() in ["bmp", "pbm", "pgm", "ppm", "sr", "ras", "jpeg", "jpg", "jpe", "jp2", "tiff", "tif",
+                             "png"]:
         image = cv.imread(path)
     else:
         # with rawpy.imread(path) as raw:
@@ -86,3 +86,13 @@ def imread(path: typing.AnyStr):
         _ = cv.waitKey(0)
         cv.destroyAllWindows()
     return image
+
+
+def calculate_min_max_of_list(input_list: typing.List):
+    min_list = min(input_list)
+    max_list = max(input_list)
+    return min_list, max_list
+
+
+def min_max_normalize(value, minimum, maximum):
+    return (value - minimum) / (maximum - minimum) * 100
