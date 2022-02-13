@@ -72,12 +72,7 @@ def get_blink_flag(face):
     
     blink_flag = -1
         
-    if yaw > 30 or yaw < -30:
-        blink_flag = 1
-    if pitch > 30 or pitch < -30:
-        blink_flag = 1
-        
-    if face["face_feature"]["emotion"]["sad"] > 90 or face["face_feature"]["emotion"]["happy"] > 90:
+    if yaw > 30 or yaw < -30 or pitch > 30 or pitch < -30 or face["face_feature"]["emotion"]["sad"] > 90 or face["face_feature"]["emotion"]["happy"] > 90:
         blink_flag = 1
     else :
         if face["eye_data"]["eye_blink_ratio"] > blink_thresh:
