@@ -33,6 +33,8 @@ def process_face(face_info, image, known_faces=None, location=None):
 def process_image(image, known_faces=None):
     data = dict()
     blur_value = get_blur_value(image)
+    data["height"] = image.shape[0]
+    data["width"] = image.shape[1]
     data["blur"] = generate_blur_data(blur_value)
     exposure_value = get_exposure_value(image)
     data["exposure"] = generate_exposure_data(exposure_value)
