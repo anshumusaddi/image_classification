@@ -43,4 +43,8 @@ def get_blink_flag(face):
         else:
             blink_flag = -1
     return blink_flag
+    
+    
+def get_TEBB_score(blur, blink_flag, emotion_score):
+    return blur * blink_flag * emotion_score
         
