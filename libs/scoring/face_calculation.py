@@ -1,0 +1,1 @@
+from utils import calculate_min_max_of_list, min_max_normalize
