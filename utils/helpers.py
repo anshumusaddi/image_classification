@@ -80,7 +80,7 @@ def imread(path: typing.AnyStr):
         if is_vertical_image(image):
             image = imutils.resize(image, width=config.processing_height)
         else:
-            image = imutils.resize(image, width=config.processing_width)
+            image = imutils.resize(image, height=config.processing_height)
     if config.image_debug_mode:
         cv.imshow('Input Re-Sized Image', image)
         _ = cv.waitKey(0)
