@@ -33,5 +33,5 @@ def calculate_blur_score(clusters_data):
             value["normalized_sharpness"] = min_max_normalize(value["sharpness"], sharpness_min, sharpness_max)
             value["crisp_metric"] = calculate_crisp_metric(value["normalized_crisp"], value["normalized_dct"],
                                                            value["normalized_sharpness"])
-            value["crisp_metric_normalized"] = min_max_normalize(value["crisp_metric"], crisp_metric_min,
+            value["normalized_crisp_metric"] = min_max_normalize(value["crisp_metric"], crisp_metric_min,
                                                                  crisp_metric_max)
