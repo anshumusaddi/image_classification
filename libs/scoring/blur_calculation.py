@@ -1,7 +1,7 @@
 from utils import calculate_min_max_of_list, min_max_normalize
 
 
-def calculate_crisp_metric(crisp, dct, sharpness):
+def calculate_image_blur_score(crisp, dct, sharpness):
     return crisp + dct + sharpness
 
 
@@ -22,16 +22,15 @@ def calculate_blur_score(clusters_data):
     norm_crisp_list = [min_max_normalize(i, crisp_min, crisp_max) for i in crisp_list]
     norm_dct_list = [min_max_normalize(i, dct_min, dct_max) for i in dct_list]
     norm_sharpness_list = [min_max_normalize(i, sharpness_min, sharpness_max) for i in sharpness_list]
-    crisp_metric_list = [calculate_crisp_metric(i, j, k) for i, j, k in zip(norm_crisp_list, norm_dct_list,
-                                                                            norm_sharpness_list)]
-    crisp_metric_min, crisp_metric_max = calculate_min_max_of_list(crisp_metric_list)
+    blur_score_list = [calculate_image_blur_score(i, j, k) for i, j, k in zip(norm_crisp_list, norm_dct_list,
+                                                                              norm_sharpness_list)]
+    blur_score_min, blur_score_max = calculate_min_max_of_list(blur_score_list)
 
     for cluster in clusters_data:
         for value in cluster.values():
             value["normalized_crisp"] = min_max_normalize(value["blur"]["blur_value"], crisp_min, crisp_max)
             value["normalized_dct"] = min_max_normalize(value["dct_blur"], dct_min, dct_max)
             value["normalized_sharpness"] = min_max_normalize(value["sharpness"], sharpness_min, sharpness_max)
-            value["crisp_metric"] = calculate_crisp_metric(value["normalized_crisp"], value["normalized_dct"],
-                                                           value["normalized_sharpness"])
-            value["normalized_crisp_metric"] = min_max_normalize(value["crisp_metric"], crisp_metric_min,
-                                                                 crisp_metric_max)
+            value["blur_score"] = calculate_image_blur_score(value["normalized_crisp"], value["normalized_dct"],
+                                                             value["normalized_sharpness"])
+            value["normalized_blur_score"] = min_max_normalize(value["blur_score"], blur_score_min, blur_score_max)

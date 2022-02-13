@@ -30,5 +30,11 @@ class Config(object):
         self.default_face_weight = file_config.get("default_face_weight", 0.01)
         self.face_height_threshold = file_config.get("face_height_threshold", 0.1)
         self.default_face_coverage_score = file_config.get("default_face_coverage_score", 0.01)
+        self.blur_weight = file_config.get("blur_weight", 0.5)
+        self.face_weight = file_config.get("face_weight", 0.5)
+        self.z = file_config.get("z", 0.1)
+        self.z_gamma = file_config.get("z_gamma", 1)
+        self.default_z_gamma = file_config.get("default_z_gamma", 0.1)
+
 
 config = Config()
