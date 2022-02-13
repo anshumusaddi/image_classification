@@ -27,5 +27,8 @@ class Config(object):
         self.open_eye_threshold_high = file_config.get("open_eye_threshold_high", 3)
         self.face_similarity_tolerance = file_config.get("face_similarity_tolerance", 0.5)
 
+        self.default_face_weight = file_config.get("default_face_weight", 0.01)
+        self.face_height_threshold = file_config.get("face_height_threshold", 0.1)
+        self.default_face_coverage_score = file_config.get("default_face_coverage_score", 0.01)
 
 config = Config()
