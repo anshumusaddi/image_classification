@@ -27,9 +27,11 @@ def calculate_face_coverage_score(face, image_height):
 
 def calculate_face_score(clusters_data):
     face_dct_list = list()
+    face_score = list()
     for cluster in clusters_data:
         for value in cluster.values():
             image_height = value["height"]
+            
             for face in value.get("faces", []):
                 face_sim_data = face.get("face_similarity")
                 if face_sim_data:
@@ -38,9 +40,20 @@ def calculate_face_score(clusters_data):
                     face["face_weight"] = config.default_face_weight
                 face["face_coverage_score"] = calculate_face_coverage_score(face, image_height)
                 face_dct_list.append(face["dct_blur"])
+            group_emo = get_group_emotion_score(value.get("faces", []))
+            image_face_score = 0
+            for face in value.get("faces", []):
+                emo_score = get_face_cosine_sim(face, group_emo)
+                tebb = get_TEBB_score(face["dct_blur"],  get_blink_flag(face), emo_score)
+                face["tebb"] = tebb
+                image_face_score = image_face_score + tebb
+            value["image_face_score"] = image_face_score
+            face_score.append(image_face_score)
     face_dct_min, face_dct_max = calculate_min_max_of_list(face_dct_list)
+    face_score_min, face_score_max = calculate_min_max_of_list(face_score)
     for cluster in clusters_data:
         for value in cluster.values():
+            value["normalized_face_score"] = min_max_normalize(value["image_face_score", face_score_min, face_score_max)
             for face in value.get("faces", []):
                 face["normalized_dct_blur"] = min_max_normalize(face["dct_blur"], face_dct_min, face_dct_max)
 
