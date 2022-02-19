@@ -1,12 +1,15 @@
+import copy
+import os
+
 import cv2
 import numpy as np
-import os
 from skimage.filters.rank import entropy
 from skimage.morphology import square
-import copy
-import time
+
+
 class BlurDetector(object):
-    def __init__(self, downsampling_factor=4, num_scales=4, scale_start=3, entropy_filt_kernel_sze=7, sigma_s_RF_filter=15, sigma_r_RF_filter=0.25, num_iterations_RF_filter=3):
+    def __init__(self, downsampling_factor=4, num_scales=4, scale_start=3, entropy_filt_kernel_sze=7,
+                 sigma_s_RF_filter=15, sigma_r_RF_filter=0.25, num_iterations_RF_filter=3):
         self.downsampling_factor = downsampling_factor
         self.num_scales = num_scales
         self.scale_start = scale_start
@@ -186,9 +189,9 @@ class BlurDetector(object):
 
         iter = 0
         n = 0
-        old_progress = 0
+        # old_progress = 0
         for i in range(int(max(self.scales)/2), rows - int(max(self.scales)/2), self.downsampling_factor):
-            old_progress = self.disp_progress(i, rows, old_progress)
+            # old_progress = self.disp_progress(i, rows, old_progress)
             m = 0
             n += 1
             for j in range(int(max(self.scales) / 2), cols - int(max(self.scales) / 2), self.downsampling_factor):

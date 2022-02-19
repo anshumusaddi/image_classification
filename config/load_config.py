@@ -10,7 +10,7 @@ class Config(object):
             with open(config_file) as fp:
                 file_config = json.load(fp)
 
-        self.processing_height = file_config.get("processing_height", 1080)
+        self.processing_height = file_config.get("processing_height", 640)
         self.image_debug_mode = file_config.get("image_debug_mode", False)
         self.disable_resize = file_config.get("disable_resize", False)
         self.left_eye_landmarks = file_config.get("left_eye_landmarks", [36, 37, 38, 39, 40, 41])
@@ -35,6 +35,7 @@ class Config(object):
         self.z = file_config.get("z", 0.1)
         self.z_gamma = file_config.get("z_gamma", 1)
         self.default_z_gamma = file_config.get("default_z_gamma", 0.1)
+        self.thread_count = file_config.get("thread_count", max(os.cpu_count() - 2, 2))
 
 
 config = Config()

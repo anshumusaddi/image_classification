@@ -32,15 +32,22 @@ def process_face(face_info, image, known_faces=None, location=None):
 
 def process_image(image, known_faces=None):
     data = dict()
+    # fp = open(f"timing/{datetime.now().isoformat()}.txt", "w")
+    # fp.write(f"{datetime.now().isoformat()} : Start Time\n")
     blur_value = get_blur_value(image)
+    # fp.write(f"{datetime.now().isoformat()} : Normal Blur Time\n")
     data["height"] = image.shape[0]
     data["width"] = image.shape[1]
     data["blur"] = generate_blur_data(blur_value)
     exposure_value = get_exposure_value(image)
+    # fp.write(f"{datetime.now().isoformat()} : Exposure Time\n")
     data["exposure"] = generate_exposure_data(exposure_value)
     data["sharpness"] = get_sharpness_value(image)
-    data["dct_blur"] = get_dct_blur_value(image)
+    # fp.write(f"{datetime.now().isoformat()} : Sharpness Time\n")
+    # data["dct_blur"] = get_dct_blur_value(image)
+    # fp.write(f"{datetime.now().isoformat()} : DCT Time\n")
     face_infos, face_images, face_locations = get_face_images_info(image)
+    # fp.write(f"{datetime.now().isoformat()} : Face Info Time\n")
     face_data_list = list()
     for face_info, face, location in zip(face_infos, face_images, face_locations):
         if face is None or len(face) == 0:
@@ -50,6 +57,8 @@ def process_image(image, known_faces=None):
             face_data_list.append(face_data)
     if face_data_list:
         data["faces"] = face_data_list
+    # fp.write(f"{datetime.now().isoformat()} : Face Process Time\n")
+    # fp.close()
     return data
 
 
